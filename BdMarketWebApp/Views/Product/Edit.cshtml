@@ -1,0 +1,98 @@
+﻿@model BdMarketWebApp.Models.Product
+@{
+    ViewData["Title"] = "BD Market - Edit Item";
+    ViewData["ItemActive"] = "active";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewAll","Product")">Product</a>
+        </li>
+        <li class="breadcrumb-item active">Edit</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2>Edit Product</h2>
+            <hr />
+
+            <form method="post" asp-action="Edit" class="form-horizontal" id="attachment" enctype="multipart/form-data" encoding="multipart/form-data">
+                @Html.Raw(ViewData["Message"])
+
+                <input type="hidden" asp-for="Quantity" />
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="PictureUrl" />
+
+                <div class="form-group">
+                    <label asp-for="ProductTitle">Title</label>
+                    <br />
+                    <input type="text" asp-for="ProductTitle" placeholder="Enter Product Title" class="form-control" />
+                    <br />
+                    <span asp-validation-for="ProductTitle" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ProductDescription">Description</label>
+                    <br />
+                    <input type="text" asp-for="ProductDescription" placeholder="Enter Product Description" class="form-control" />
+                    <br />
+                    <span asp-validation-for="ProductDescription" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CategoryId">Category</label>
+                    <br />
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                        <option value="">-- Select Category --</option>
+                    </select>
+                    <br />
+                    <span asp-validation-for="CategoryId" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EntryDate">Date</label>
+                    <br />
+                    <input type="text" asp-for="EntryDate" placeholder="Enter Product Entry Date" class="form-control" />
+                    <br />
+                    <span asp-validation-for="EntryDate" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Product Picture</label>
+                    <br />
+                    <input type="file" name="picture" class="form-control" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BasePrice">Base Price</label>
+                    <br />
+                    <input type="text" asp-for="BasePrice" placeholder="Enter Base Price" class="form-control" />
+                    <br />
+                    <span asp-validation-for="BasePrice" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SellPrice">Sell Price</label>
+                    <br />
+                    <input type="text" asp-for="SellPrice" placeholder="Enter Sell Price" class="form-control" />
+                    <br />
+                    <span asp-validation-for="SellPrice" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Edit" class="btn btn-default" style="width: 100%"/>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

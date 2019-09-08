@@ -1,0 +1,114 @@
+﻿@using BdMarketWebApp.Models.ViewModels
+
+@{
+    ViewData["Title"] = "BD Market - View Rejected Orders";
+    ViewData["OrderActive"] = "active";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewAllOrders","OrderItem")">Order</a>
+        </li>
+        <li class="breadcrumb-item active">View Rejected Items</li>
+    </ol>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Rejected Items
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Customer Information</th>
+                            <th>Order Info</th>
+                            <th>Order Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>SL</th>
+                            <th>Customer Information</th>
+                            <th>Order Info</th>
+                            <th>Order Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+                            int count = 1;
+
+                            foreach (OrderInfoViewModel order in ViewBag.RejectedOrders)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>
+                                        <p>Name: @order.FirstName @order.LastName</p>
+                                        <p>Email: @order.Email</p>
+                                        <p>Phone: @order.Phone</p>
+                                        <p>Address One: @order.AddressOne</p>
+                                        <p>Address Two: @order.AddressTwo</p>
+                                        <p>Place: @order.DeliveryPlace</p>
+                                        <p>Action Email: @order.ActionByUserEmail</p>
+
+                                        @if (order.IsHomeDelivery == 1)
+                                        {
+                                            <p>Delivery Type: Home</p>
+                                            <p>Delivery Charge: @order.DeliveryCharge</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Delivery Type: Not Home</p>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Item Name</th>
+                                                        <th>Category Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (OrderItemViewModel item in order.OrderItemViewModels)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.ProductName</td>
+                                                            <td>@item.CategoryName</td>
+                                                            <td>@item.Quantity</td>
+                                                            <td>
+                                                                @if (item.IsNew == 0 || item.IsReceived == 1 || item.IsDelivered == 1)
+                                                                {
+                                                                    <a href="@Url.Action("ResetAsOrderState","OrderItem", new {orderId = item.OrderItemId, go = 2})">Reset Order</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a>No Action Needed</a>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td><a href="@Url.Action("RemoveOrder","OrderItem", new {infoId = order.InfoId})">Remove</a></td>
+                                </tr>
+
+                                count++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated Table at @DateTime.Now.ToString("F")</div>
+    </div>
+</div>

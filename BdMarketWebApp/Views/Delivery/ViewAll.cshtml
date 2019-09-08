@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "BD Market - View Delivery";
+    ViewData["DeliveryActive"] = "active";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewAll","Delivery")">Delivery</a>
+        </li>
+        <li class="breadcrumb-item active">View All</li>
+    </ol>
+
+    <div class="row" style="padding-top: 10px; padding-bottom: 10px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div style="width: 100%">
+                    <button onclick="location.href = '@Url.Action("Add", "Delivery")';" class="add_button"><i class="fas fa-plus-square"></i> Add Delivery</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <br />
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Delivery Info Table
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Place Name</th>
+                            <th>Charge</th>
+                            <th>Action Name</th>
+                            <th>Action Time</th>
+                            <th>Action By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>SL</th>
+                            <th>Place Name</th>
+                            <th>Charge</th>
+                            <th>Action Name</th>
+                            <th>Action Time</th>
+                            <th>Action By</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+                            int count = 1;
+
+                            foreach (Delivery delivery in ViewBag.Deliveries)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@delivery.PlaceName</td>
+                                    <td>@delivery.Charge</td>
+                                    <td>@delivery.ActionDone</td>
+                                    <td>@delivery.ActionTime</td>
+                                    <td>@delivery.ActionBy</td>
+                                    <td><a href="@Url.Action("Edit","Delivery", new {id=delivery.Id})">Edit</a></td>
+                                </tr>
+
+                                count++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated Table at @DateTime.Now.ToString("F")</div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,85 @@
+﻿@using BdMarketWebApp.Models.ViewModels
+
+@{
+    ViewData["Title"] = "BD Market - View Items";
+    ViewData["ItemActive"] = "active";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewAll","Product")">Product</a>
+        </li>
+        <li class="breadcrumb-item active">View All</li>
+    </ol>
+
+    <div class="row" style="padding-top: 10px; padding-bottom: 10px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div style="width: 100%">
+                    <button onclick="location.href = '@Url.Action("Add", "Product")';" class="add_button"><i class="fas fa-plus-square"></i> Add Product</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <br />
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Product Tables
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Category Name</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Picture</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>SL</th>
+                            <th>Category Name</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Picture</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+                            int count = 1;
+
+                            foreach (ProductViewModel product in ViewBag.Products)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@product.CategoryName</td>
+                                    <td>@product.ProductTitle</td>
+                                    <td>@product.SellPrice</td>
+                                    <td><img src="@product.PictureUrl" style="height: 80px; width: 150px" /></td>
+                                    <td>@product.Quantity</td>
+                                    <td><a href="@Url.Action("Edit","Product", new {id=product.Id})">Edit</a> | <a href="@Url.Action("Remove","Product", new {id=product.Id})">Remove</a> | <a href="@Url.Action("Details","Product", new {id = product.Id})">Details</a> | <a href="@Url.Action("StockIn","Product", new {id = product.Id})">Stock</a></td>
+                                </tr>
+
+                                count++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated Table at @DateTime.Now.ToString("F")</div>
+    </div>
+</div>

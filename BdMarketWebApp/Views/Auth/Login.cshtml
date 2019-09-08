@@ -1,0 +1,60 @@
+﻿@model BdMarketWebApp.Models.ViewModels.LoginViewModel
+@{
+    Layout = null;
+}
+
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<head>
+    <link rel="icon" type="image/png" href="~/logo/bd_market_icon.png" />
+    <title>BD Market - Login</title>
+</head>
+
+<div>
+    <div class="col-md-12" style="height: 10%; width: 100%"></div>
+    <div class="col-md-12" style="height: 60%; width: 100%">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" style="border: 1px solid #FAFAFA; border-radius: 10px; background-color: #F5F5F5">
+                <form asp-action="Login" class="form-horizontal" style="padding: 7px;">
+                    <h3><img src="~/logo/bd_market_icon.png" height="25px" width="50px" /> Log in</h3><hr />
+
+                    <img src="~/assets/imp/avater.jpg" style="height: 90px; width: 90px; border-radius: 100%; display: block; margin-left: auto; margin-right: auto" />
+
+                    <div style="padding: 4px">
+                        @Html.Raw(ViewData["Message"])
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="UserName">User Name</label>
+                        <br />
+                        <input type="text" class="form-control" asp-for="UserName" placeholder="Write Your User Name" />
+
+                        <span asp-validation-for="UserName" style="color: red"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password">Password</label>
+                        <br />
+                        <input type="password" class="form-control" asp-for="Password" placeholder="Write your password" />
+
+                        <span asp-validation-for="Password" style="color: red"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default" style="width: 100%;" value="Login" />
+                    </div>
+                    <hr />
+                    <span>Copyright © BD Market @DateTime.Now.Year - Developed By IrfatMahmoodTurkey</span>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="col-md-12" style="height: 30%; width: 100%;"></div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

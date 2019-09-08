@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "BD Market - Sell Report";
+    ViewData["OrderReportActive"] = "active";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewSellReport","OrderItem")">Report</a>
+        </li>
+        <li class="breadcrumb-item active">Order Report</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2>View Order Report</h2>
+            <hr />
+
+            <form method="post" asp-action="ViewSellReport" class="form-horizontal">
+                @Html.Raw(ViewData["Message"])
+
+                <div class="form-group">
+                    <label>Month Name</label>
+                    <br />
+                    <select name="month" class="form-control">
+                        <option value="0">-- Select Month --</option>
+                        <option value="1">Jan</option>
+                        <option value="2">Feb</option>
+                        <option value="3">Mar</option>
+                        <option value="4">Apr</option>
+                        <option value="5">May</option>
+                        <option value="6">Jun</option>
+                        <option value="7">Jul</option>
+                        <option value="8">Aug</option>
+                        <option value="9">Sept</option>
+                        <option value="10">Oct</option>
+                        <option value="11">Nov</option>
+                        <option value="12">Dec</option>
+                    </select>
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Year</label>
+                    <br />
+                    <select name="year" class="form-control" asp-items="@ViewBag.Years">
+                        <option value="0">-- Select Year --</option>
+                    </select>
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="View Report" class="btn btn-default" style="width: 100%"/>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

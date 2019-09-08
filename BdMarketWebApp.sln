@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BdMarketWebApp", "BdMarketWebApp\BdMarketWebApp.csproj", "{E7E77A05-36EC-4900-A080-1FDCE199061E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7E77A05-36EC-4900-A080-1FDCE199061E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7E77A05-36EC-4900-A080-1FDCE199061E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7E77A05-36EC-4900-A080-1FDCE199061E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7E77A05-36EC-4900-A080-1FDCE199061E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {79CAD28A-568F-4BD5-A777-65DA22D96FD2}
+	EndGlobalSection
+EndGlobal

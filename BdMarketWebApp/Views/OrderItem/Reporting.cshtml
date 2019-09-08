@@ -1,0 +1,144 @@
+﻿@using System.Globalization
+@using BdMarketWebApp.Models.ViewModels
+@model BdMarketWebApp.Models.ViewModels.ReportingViewModel
+@{
+    ViewData["Title"] = "Reporting";
+    Layout = null;
+}
+
+
+<head>
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="~/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="~/assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/assets/css/sb-admin.css" rel="stylesheet">
+</head>
+<body>
+
+    <div style="padding-top: 18px;">
+        <h3 style="text-align: center">BD Market</h3>
+        <hr />
+        @if (Model.Month == 0 && Model.Year != 0)
+        {
+            <h4 style="text-align: center">Order Report - @Model.Year</h4>
+        }
+        else if (Model.Month != 0 && Model.Year == 0)
+        {
+            <h4 style="text-align: center">Order Report - @CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(Model.Month)</h4>
+        }
+        else if (Model.Month == 0 && Model.Year == 0)
+        {
+            <h4 style="text-align: center">Order Report - Full</h4>
+        }
+        else if (Model.Month != 0 && Model.Year != 0)
+        {
+            <h4 style="text-align: center">Order Report - @CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(Model.Month) @Model.Year</h4>
+        }
+
+
+        <hr />
+        <p>Print Date: @DateTime.Now.ToString("F")</p>
+
+        <table class="table">
+
+            <thead style="background-color: #004D40; color: white;">
+                <tr>Sold Summery</tr>
+                <tr>
+                    <td>Total</td>
+                    <td>Profit</td>
+                    <td>Quantity</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border: 1px solid dimgrey">
+                    <td>@Model.Total</td>
+                    <td>@Model.Profit</td>
+                    <td>@Model.Quantity</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+
+        <table class="table">
+            <thead style="background-color: #004D40; color: white;">
+                <tr>Order Items</tr>
+                <tr>
+                    <td>SL</td>
+                    <td>Product</td>
+                    <td>Category</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Profit</td>
+                    <td>Date</td>
+                    <td>Order Id</td>
+                    <td>New Status</td>
+                    <td>Del Status</td>
+                    <td>Rec Status</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model != null) {
+
+                    int count = 1;
+
+                    @foreach (OrderItemViewModel data in Model.OrderItemViewModels)
+                    {
+                        <tr style="border: 1px solid dimgrey">
+                            <td>@count</td>
+                            <td>@data.ProductName</td>
+                            <td>@data.CategoryName</td>
+                            <td>@data.Quantity</td>
+                            <td>@data.ProductPrice</td>
+                            <td>@data.Profit</td>
+                            <td>@data.OrderDate</td>
+                            <td>@data.OrderId</td>
+
+                            @if (data.IsNew == 1)
+                            {
+                                <td>Yes</td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                            }
+
+                            @if (data.IsReceived == 1)
+                            {
+                                <td>Yes</td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                            }
+
+                            @if (data.IsDelivered == 1)
+                            {
+                                <td>Yes</td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                            }
+
+                        </tr>
+
+                        count++;
+                    }
+                }
+            </tbody>
+        </table>
+        <hr />
+        <footer style="padding-top: 25px;">
+            <p style="float: left">Owner</p>
+            <p style="float: right">Manager</p>
+        </footer>
+    </div>
+
+
+    <script src="~/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/sb-admin.min.js"></script>
+</body>

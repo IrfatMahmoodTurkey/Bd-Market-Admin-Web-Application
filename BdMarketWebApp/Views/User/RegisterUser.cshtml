@@ -1,0 +1,60 @@
+﻿@model BdMarketWebApp.Models.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "BD Market - Register User";
+    ViewData["UserActive"] = "active";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewAll","Product")">User</a>
+        </li>
+        <li class="breadcrumb-item active">Register New</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2>Register New User</h2>
+            <hr />
+
+            <form method="post" asp-action="RegisterUser" class="form-horizontal">
+                @Html.Raw(ViewData["Message"])
+
+                <div class="form-group">
+                    <label asp-for="UserName">User Name</label>
+                    <br />
+                    <input type="text" asp-for="UserName" placeholder="Enter User Name" class="form-control" />
+                    <br />
+                    <span asp-validation-for="UserName" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <br />
+                    <input type="email" asp-for="Email" placeholder="Enter Email" class="form-control" />
+                    <br />
+                    <span asp-validation-for="Email" class="alert-danger"></span>
+                </div>
+
+            
+                <div class="form-group">
+                    <label asp-for="Phone">User Phone</label>
+                    <br />
+                    <input type="text" asp-for="Phone" placeholder="Enter User Phone" class="form-control" />
+                    <br />
+                    <span asp-validation-for="Phone" class="alert-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-default" style="width: 100%"/>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

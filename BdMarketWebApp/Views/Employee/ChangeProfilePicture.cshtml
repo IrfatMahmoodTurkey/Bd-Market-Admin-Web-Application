@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "BD Market - Change Profile Picture";
+}
+
+<div class="container-fluid">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("ViewEmployee","Employee")">Employee</a>
+            </li>
+            <li class="breadcrumb-item active">Change Profile Picture</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2>Edit Profile Picture</h2>
+                <hr />
+
+                <form method="post" asp-action="ChangeProfilePicture" class="form-horizontal" id="attachment" enctype="multipart/form-data" encoding="multipart/form-data">
+                    <img src="@ViewData["ProfilePicture"]" height="500px" width="100%"/>
+
+                    @Html.Raw(ViewData["Message"])
+
+                    <div class="form-group">
+                        <input type="file" name="profilePicture" class="btn btn-default"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Change" class="btn btn-default" style="width: 100%"/>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</div>

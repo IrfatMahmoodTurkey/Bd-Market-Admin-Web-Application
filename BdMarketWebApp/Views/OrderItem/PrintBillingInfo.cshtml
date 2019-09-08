@@ -1,0 +1,122 @@
+﻿@using BdMarketWebApp.Models.ViewModels
+@model BdMarketWebApp.Models.ViewModels.OrderInfoViewModel
+
+@{
+    ViewData["Title"] = "PrintBillingInfo";
+    decimal total = 0;
+    Layout = null;
+}
+
+<head>
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row" style="padding-top: 18px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1 style="text-align: center; padding: 25px;">BD Market</h1>
+            <hr />
+            <h4 style="text-align: center">Order Receipt</h4>
+            <hr />
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Name: @Model.FirstName @Model.LastName</td>
+                        <td>Date: @DateTime.Now.ToString("D")</td>
+                    </tr>
+                    <tr>
+                        <td>Email: @Model.Email</td>
+                        <td>Phone: @Model.Phone</td>
+                    </tr>
+                    <tr>
+                        <td>Address One: @Model.AddressOne</td>
+                        <td>Address Two: @Model.AddressTwo</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table">
+                <thead style="background-color: #004D40; color: white">
+                    <tr>
+                        <th>SL</th>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Order ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+                        int totalRows = Model.OrderItemViewModels.Count;
+
+                        foreach (OrderItemViewModel order in Model.OrderItemViewModels)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>@order.ProductName</td>
+                                <td>@order.CategoryName</td>
+                                <td>@order.Quantity</td>
+                                <td>@order.ProductPrice</td>
+                                <td>@order.OrderId</td>
+                            </tr>
+
+                            count++;
+                            total = order.ProductPrice + total;
+
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr style="background-color: #C5CAE9">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Total: </th>
+                        <th>@total</th>
+                        <th></th>
+                    </tr>
+                    <tr style="background-color: #FFECB3">
+                        <th>Selected Place: @Model.DeliveryPlace</th>
+
+                        @if (Model.IsHomeDelivery == 1)
+                        {
+                            <th>Home Delivery: Yes</th>
+                        }
+                        else
+                        {
+                            <th>Home Delivery: No</th>
+                        }
+
+                        <th></th>
+                        <th>Charge:</th>
+                        <th>@Model.DeliveryCharge</th>
+                        <th></th>
+                    </tr>
+                    <tr style="background-color: #B2DFDB;">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Grand Total:</th>
+                        @{
+                            decimal grandTotal = total + Model.DeliveryCharge;
+
+                            <th>@grandTotal</th>
+                        }
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <hr />
+            <footer style="padding-top: 25px;">
+                <p style="float: left;">Signature of Order Receipt</p>
+                <p style="float: right;">Signature of Customer</p>
+            </footer>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</body>
+

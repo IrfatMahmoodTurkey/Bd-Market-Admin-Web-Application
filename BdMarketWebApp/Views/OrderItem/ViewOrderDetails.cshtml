@@ -1,0 +1,155 @@
+﻿@using BdMarketWebApp.Models.ViewModels
+
+@{
+    ViewData["Title"] = "BD Market - Order Details";
+    ViewData["OrderActive"] = "active";
+    OrderInfoViewModel orderInfo = ViewBag.OrderInfo;
+    decimal total = 0;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewAllOrders","OrderItem")">Order</a>
+        </li>
+        <li class="breadcrumb-item active">Order Details</li>
+    </ol>
+
+    <div class="row" id="myDiv">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2>Order Details</h2>
+            <hr />
+
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <br />
+                    <input type="text" value="@orderInfo.FirstName" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <br />
+                    <input type="text" value="@orderInfo.LastName" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <br />
+                    <input type="text" value="@orderInfo.Email" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <br />
+                    <input type="text" value="@orderInfo.Phone" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Address One</label>
+                    <br />
+                    <input type="text" value="@orderInfo.AddressOne" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Address Two</label>
+                    <br />
+                    <input type="text" value="@orderInfo.AddressTwo" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Order By</label>
+                    <br />
+                    <input type="text" value="@orderInfo.ActionByUserName" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Order By Email</label>
+                    <br />
+                    <input type="text" value="@orderInfo.ActionByUserEmail" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    <label>Order Time</label>
+                    <br />
+                    <input type="text" value="@orderInfo.ActionTime" class="form-control" readonly="readonly" />
+                    <br />
+                </div>
+
+                <div class="form-group">
+                    @if (orderInfo.OrderItemViewModels.Count > 0)
+                    {
+                        <button onclick="location.href='@Url.Action("PrintBillingInfo","OrderItem", new {infoId = orderInfo.InfoId})';" class="add_button"><i class="fas fa-print"></i> Print Bill</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Order Items
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Item Name</th>
+                            <th>Category Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Order ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int count = 1;
+                            int totalRows = orderInfo.OrderItemViewModels.Count;
+
+                            foreach (OrderItemViewModel order in orderInfo.OrderItemViewModels)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@order.ProductName</td>
+                                    <td>@order.CategoryName</td>
+                                    <td>@order.Quantity</td>
+                                    <td>@order.ProductPrice</td>
+                                    <td>@order.OrderId</td>
+                                </tr>
+
+                                count++;
+                                total = order.ProductPrice + total;
+
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Total: </th>
+                            <th>@total</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated Table at @DateTime.Now.ToString("F")</div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "BD Market - View Category";
+    ViewData["CategoryActive"] = "active";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("ViewAll","Category")">Category</a>
+        </li>
+        <li class="breadcrumb-item active">View All</li>
+    </ol>
+
+    <div class="row" style="padding-top: 10px; padding-bottom: 10px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div style="width: 100%">
+                    <button onclick="location.href='@Url.Action("Add", "Category")';" class="add_button"><i class="fas fa-plus-square"></i> Add Category</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <br />
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Category Table
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Category Name</th>
+                            <th>Action Name</th>
+                            <th>Action Time</th>
+                            <th>Action By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>SL</th>
+                            <th>Category Name</th>
+                            <th>Action Name</th>
+                            <th>Action Time</th>
+                            <th>Action By</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+                            int count = 1;
+
+                            foreach (Category category in ViewBag.Categories)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@category.Name</td>
+                                    <td>@category.ActionName</td>
+                                    <td>@category.ActionTime</td>
+                                    <td>@category.ActionBy</td>
+                                    <td><a href="@Url.Action("Edit","Category", new {id=category.Id})">Edit</a></td>
+                                </tr>
+
+                                count++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated Table at @DateTime.Now.ToString("F")</div>
+    </div>
+</div>
+
+

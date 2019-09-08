@@ -1,0 +1,202 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" type="image/png" href="~/logo/bd_market_icon.png" />
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="~/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="~/assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/assets/css/sb-admin.css" rel="stylesheet">
+
+    <script src="~/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+        #top_nav {
+            background: #000000; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #0f9b0f, #000000); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #0f9b0f, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        #side_nav {
+            background-color: #2C5364;
+        }
+
+        .add_button {
+            background-color: #00695C;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            width: 100%;
+        }
+
+            .add_button:hover {
+                background-color: #009688;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                width: 100%;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top" id="top_nav">
+        <a class="navbar-brand mr-1" href="index.html"><img src="~/logo/bd_market_icon.png" height="25px" width="50px"/> BD Market- Admin Panel</a>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i>
+        </button>
+        <!-- Navbar Search -->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+            </div>
+        </form>
+        <!-- Navbar -->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle fa-fw"></i> @Context.Session.GetString("UserName")
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="@Url.Action("ChangePassword","Employee")">Change Password</a>
+                    <a class="dropdown-item" href="@Url.Action("ChangeProfilePicture","Employee")">Change Profile Picture</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav" id="side_nav">
+            <li class="nav-item @ViewData["HomeActive"]">
+                <a class="nav-link" href="@Url.Action("Index","Home")">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["CategoryActive"]">
+                <a class="nav-link" href="@Url.Action("ViewAll","Category")">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["DeliveryActive"]">
+                <a class="nav-link" href="@Url.Action("ViewAll","Delivery")">
+                    <i class="fas fa-truck"></i>
+                    <span>Deliveries</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["DesignationActive"]">
+                <a class="nav-link" href="@Url.Action("ViewAll","Designation")">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Designations</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["EmployeeActive"]">
+                <a class="nav-link" href="@Url.Action("ViewEmployee","Employee")">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Employees</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["ItemActive"]">
+                <a class="nav-link" href="@Url.Action("ViewAll","Product")">
+                    <i class="fas fa-database"></i>
+                    <span>Items</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["OrderActive"]">
+                <a class="nav-link" href="@Url.Action("ViewAllOrders","OrderItem")">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["UserActive"]">
+                <a class="nav-link" href="@Url.Action("ViewAllUsers","User")">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li class="nav-item @ViewData["OrderReportActive"]">
+                <a class="nav-link" href="@Url.Action("ViewSellReport","OrderItem")">
+                    <i class="fas fa-users"></i>
+                    <span>Sell Report</span>
+                </a>
+            </li>
+        </ul>
+
+
+        <div id="content-wrapper">
+            @RenderBody()
+            <!-- /.container-fluid -->
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © BD Market @DateTime.Now.Year - Developed by IrfatMahmoodTurkey</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="@Url.Action("Logout","Auth")">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    @*<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+    <!-- Core plugin JavaScript-->
+    @*<script src="~/assets/vendor/jquery-easing/jquery.easing.min.js"></script>*@
+    <!-- Page level plugin JavaScript-->
+    <script src="~/assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/assets/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/assets/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/assets/js/sb-admin.min.js"></script>
+    <!-- Demo scripts for this page-->
+    
+    <script src="~/assets/js/demo/datatables-demo.js"></script>
+    <script src="~/assets/js/demo/chart-area-demo.js"></script>
+</body>
+</html>
